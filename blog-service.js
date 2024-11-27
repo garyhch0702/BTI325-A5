@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const Sequelize = require('sequelize');
 
-// Log environment variables to debug (remove in production)
 console.log("DB:", process.env.SUPABASE_DB);
 console.log("USER:", process.env.SUPABASE_USER);
 console.log("PASS:", process.env.SUPABASE_PASS ? "******" : "MISSING");
@@ -15,12 +14,12 @@ const sequelize = new Sequelize(
     process.env.SUPABASE_PASS,
     {
         host: process.env.SUPABASE_HOST,
-        port: process.env.SUPABASE_PORT || 6543,
+        port: process.env.SUPABASE_PORT || 5432,
         dialect: 'postgres',
         dialectOptions: {
             ssl: { rejectUnauthorized: false }
         },
-        query: { raw: true }
+        logging: console.log
     }
 );
 
