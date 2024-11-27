@@ -6,7 +6,8 @@
 * 
 *  Name: ___________CHENGHAO Hu___________ Student ID: _____149773228_________ Date: ________2024/11/27________
 *
-*  Online (Vercel) Link: ________________________________________________________
+*  Online (Vercel) Link: ______________bti-325-a5-git-main-garyhus-projects.vercel.app
+__________________________________________
 *
 ********************************************************************************/
 
@@ -166,12 +167,17 @@ app.use((req, res) => {
     res.status(404).render("404");
 });
 
-blogService.initialize()
-    .then(() => {
-        app.listen(HTTP_PORT, () => {
-            console.log(`Server running on port ${HTTP_PORT}`);
+module.exports = app;
+
+
+if (!process.env.VERCEL) {
+    blogService.initialize()
+        .then(() => {
+            app.listen(HTTP_PORT, () => {
+                console.log(`Server running on port ${HTTP_PORT}`);
+            });
+        })
+        .catch((err) => {
+            console.error(`Unable to start the server: ${err}`);
         });
-    })
-    .catch((err) => {
-        console.error(`Unable to start the server: ${err}`);
-    });
+}
