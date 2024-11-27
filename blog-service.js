@@ -1,15 +1,42 @@
+require('dotenv').config();
+
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('postgres', 'postgres.szoirmbisytcodzqzili', 'Wanba6573hjw@', {
-    host: 'aws-0-ca-central-1.pooler.supabase.com',
-    dialect: 'postgres',
-    port: 6543,
-    dialectOptions: {
-        ssl: { rejectUnauthorized: false }
-    },
-        query: { raw: true } 
-    });
+// Log environment variables to debug (remove in production)
+console.log("DB:", process.env.SUPABASE_DB);
+console.log("USER:", process.env.SUPABASE_USER);
+console.log("PASS:", process.env.SUPABASE_PASS ? "******" : "MISSING");
+console.log("HOST:", process.env.SUPABASE_HOST);
+console.log("PORT:", process.env.SUPABASE_PORT);
 
+const sequelize = new Sequelize(
+    process.env.SUPABASE_DB,
+    process.env.SUPABASE_USER,
+    process.env.SUPABASE_PASS,
+    {
+        host: process.env.SUPABASE_HOST,
+        port: process.env.SUPABASE_PORT || 6543,
+        dialect: 'postgres',
+        dialectOptions: {
+            ssl: { rejectUnauthorized: false }
+        },
+        query: { raw: true }
+    }
+);
+
+sequelize.authenticate()
+    .then(() => console.log("Database connected successfully."))
+    .catch((err) => console.error("Unable to connect to the database:", err));
+
+module.exports.initialize = async () => {
+    try {
+        await sequelize.sync();
+        console.log("Database synced successfully.");
+    } catch (err) {
+        console.error("Unable to sync the database:", err);
+        throw err;
+    }
+};
 const Post = sequelize.define('Post', {
     body: Sequelize.TEXT,
     title: Sequelize.STRING,
