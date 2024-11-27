@@ -1,21 +1,14 @@
 const Sequelize = require('sequelize');
 
-const Sequelize = require('sequelize');
-
-const sequelize = new Sequelize(
-    process.env.SUPABASE_DB, 
-    process.env.SUPABASE_USER, 
-    process.env.SUPABASE_PASS, 
-    {
-        host: process.env.SUPABASE_HOST,
-        port: process.env.SUPABASE_PORT || 6543,
-        dialect: 'postgres',
-        dialectOptions: {
-            ssl: { rejectUnauthorized: false } 
-        },
-        query: { raw: true }
-    }
-);
+const sequelize = new Sequelize('postgres', 'postgres.szoirmbisytcodzqzili', 'Wanba6573hjw@', {
+    host: 'aws-0-ca-central-1.pooler.supabase.com',
+    dialect: 'postgres',
+    port: 6543,
+    dialectOptions: {
+        ssl: { rejectUnauthorized: false }
+    },
+        query: { raw: true } 
+    });
 
 const Post = sequelize.define('Post', {
     body: Sequelize.TEXT,
