@@ -1,0 +1,34 @@
+<h2>Add Post</h2>
+
+<form action="/posts/add" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="body">Body:</label>
+        <textarea id="body" name="body" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="category">Category:</label>
+        {{#if categories}}
+            <select id="category" name="category" class="form-control">
+                <option value="">Select Category</option>
+                {{#each categories}}
+                    <option value="{{id}}">{{category}}</option>
+                {{/each}}
+            </select>
+        {{else}}
+            <div>No Categories</div>
+        {{/if}}
+    </div>
+    <div class="form-group">
+        <label for="featureImage">Feature Image:</label>
+        <input type="file" id="featureImage" name="featureImage" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="published">Published:</label>
+        <input type="checkbox" id="published" name="published" value="true">
+    </div>
+    <button type="submit" class="btn btn-success">Add Post</button>
+</form>

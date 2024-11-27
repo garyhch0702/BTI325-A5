@@ -1,0 +1,29 @@
+<h2>Categories</h2>
+<a href="/categories/add" class="btn btn-success pull-right">Add Category</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Category ID</th>
+            <th>Category Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#if categories}}
+            {{#each categories}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{category}}</td>
+                <td>
+                    <a href="/categories/delete/{{id}}" class="btn btn-danger">Remove</a>
+                </td>
+            </tr>
+            {{/each}}
+        {{else}}
+            <tr>
+                <td colspan="3">No Categories</td>
+            </tr>
+        {{/if}}
+    </tbody>
+</table>
